@@ -64,21 +64,21 @@ defineProps({
                     securely and helps assign appointments based on priority.
                 </p>
 
-                <div class="mt-8 flex flex-wrap gap-4">
-                    <Link
-                        :href="route('register')"
-                        class="rounded-xl bg-blue-500 px-7 py-3 font-semibold text-white shadow-lg shadow-blue-500/20 hover:bg-blue-600"
-                    >
-                        Create Account
-                    </Link>
+<!--                <div class="mt-8 flex flex-wrap gap-4">-->
+<!--                    <Link-->
+<!--                        :href="route('register')"-->
+<!--                        class="rounded-xl bg-blue-500 px-7 py-3 font-semibold text-white shadow-lg shadow-blue-500/20 hover:bg-blue-600"-->
+<!--                    >-->
+<!--                        Create Account-->
+<!--                    </Link>-->
 
-                    <Link
-                        :href="route('login')"
-                        class="rounded-xl border border-slate-700 px-7 py-3 font-semibold text-slate-200 hover:bg-slate-900"
-                    >
-                        Login
-                    </Link>
-                </div>
+<!--                    <Link-->
+<!--                        :href="route('login')"-->
+<!--                        class="rounded-xl border border-slate-700 px-7 py-3 font-semibold text-slate-200 hover:bg-slate-900"-->
+<!--                    >-->
+<!--                        Login-->
+<!--                    </Link>-->
+<!--                </div>-->
             </div>
 
             <!-- Hero Card -->
@@ -135,7 +135,7 @@ defineProps({
 
         <!-- Footer -->
         <footer class="border-t border-slate-800 px-6 py-8 text-center text-sm text-slate-500">
-            © 2026 AppointFlow. All rights reserved.
+            © 2026 Advance Appoint System. All rights reserved.
         </footer>
     </div>
 </template>
