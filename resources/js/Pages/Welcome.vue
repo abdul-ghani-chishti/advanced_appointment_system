@@ -14,7 +14,7 @@ defineProps({
         <!-- Navbar -->
         <header class="mx-auto flex max-w-7xl items-center justify-between px-6 py-6">
             <div class="text-2xl font-bold">
-                Appoint<span class="text-blue-400">Flow</span>
+                Advance Appoint<span class="text-blue-400"> System</span>
             </div>
 
             <nav v-if="canLogin" class="flex items-center gap-4">
