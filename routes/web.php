@@ -5,14 +5,11 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+Route::get('/', fn () => Inertia::render('UserWelcome'))->name('home');
+Route::get('/about', fn () => Inertia::render('About'))->name('about');
+Route::get('/services', fn () => Inertia::render('Services'))->name('services');
+Route::get('/contact', fn () => Inertia::render('Contact'))->name('contact');
+
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
