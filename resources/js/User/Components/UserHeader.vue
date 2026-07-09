@@ -1,5 +1,5 @@
 <script setup>
-import { Link } from '@inertiajs/vue3'
+import {Link} from '@inertiajs/vue3'
 
 defineProps({
     canLogin: Boolean,
@@ -50,7 +50,6 @@ defineProps({
 
             <!-- Right Side -->
             <div v-if="canLogin" class="flex items-center gap-3">
-
                 <template v-if="$page.props.auth.user">
                     <Link
                         :href="route('dashboard')"
