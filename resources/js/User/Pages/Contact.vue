@@ -1,5 +1,6 @@
 <script setup>
-import { Head } from '@inertiajs/vue3'
+import { Head , usePage} from '@inertiajs/vue3'
+import {computed} from "vue";
 import UserLayout from '@/User/Layouts/UserLayout.vue'
 import ContactForm from '@/User/Components/Contact/ContactForm.vue'
 import ContactInformation from '@/User/Components/Contact/ContactInformation.vue'
@@ -8,6 +9,10 @@ defineProps({
     canLogin: Boolean,
     canRegister: Boolean,
 })
+
+const page = usePage()
+const successMessage = computed(() => page.props.flash?.success)
+
 </script>
 
 <template>
@@ -23,6 +28,13 @@ defineProps({
                     Have questions about appointments or document submission?
                     We'd love to hear from you.
                 </p>
+            </div>
+        </section>
+
+        <!-- Success message -->
+        <section v-if="successMessage" class="mx-auto max-w-7xl px-6 pt-10">
+            <div class="rounded-xl border border-green-500/30 bg-green-500/10 px-5 py-4 text-green-300" role="alert">
+                {{ successMessage }}
             </div>
         </section>
 
