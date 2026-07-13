@@ -11,7 +11,6 @@ class ApplicationStatusService
 {
     public function getSummary(User $user): array
     {
-//        dd(2);
         $requiredTypes = DocumentType::query()
             ->where('is_required', true)
             ->orderBy('id')
