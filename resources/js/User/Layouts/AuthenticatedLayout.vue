@@ -1,3 +1,4 @@
+<!--Need to check if this file is still in use or not-->
 <script setup>
 import { ref } from 'vue';
 import ApplicationLogo from '@/Shared/Components/ApplicationLogo.vue';
@@ -22,7 +23,7 @@ const showingNavigationDropdown = ref(false);
                         <div class="flex">
                             <!-- Logo -->
                             <div class="flex shrink-0 items-center">
-                                <Link :href="route('dashboard')">
+                                <Link :href="route('portal.dashboard')">
                                     <ApplicationLogo
                                         class="block h-9 w-auto fill-current text-gray-800"
                                     />
@@ -34,8 +35,8 @@ const showingNavigationDropdown = ref(false);
                                 class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex"
                             >
                                 <NavLink
-                                    :href="route('dashboard')"
-                                    :active="route().current('dashboard')"
+                                    :href="route('portal.dashboard')"
+                                    :active="route().current('portal.dashboard')"
                                 >
                                     Dashboard
                                 </NavLink>
@@ -141,8 +142,8 @@ const showingNavigationDropdown = ref(false);
                 >
                     <div class="space-y-1 pb-3 pt-2">
                         <ResponsiveNavLink
-                            :href="route('dashboard')"
-                            :active="route().current('dashboard')"
+                            :href="route('portal.dashboard')"
+                            :active="route().current('portal.dashboard')"
                         >
                             Dashboard
                         </ResponsiveNavLink>

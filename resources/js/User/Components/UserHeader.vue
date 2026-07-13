@@ -52,7 +52,7 @@ defineProps({
             <div v-if="canLogin" class="flex items-center gap-3">
                 <template v-if="$page.props.auth.user">
                     <Link
-                        :href="route('dashboard')"
+                        :href="route('portal.dashboard')"
                         class="rounded-lg bg-blue-500 px-5 py-2 text-sm font-semibold text-white transition hover:bg-blue-600"
                     >
                         Dashboard
