@@ -2,20 +2,26 @@
 import { Head } from '@inertiajs/vue3'
 import PortalLayout from '@/User/Layouts/AuthenticatedUserPortalLayout.vue'
 
-const documents = [
-    {
-        type: 'Passport',
-        filename: 'passport.pdf',
-        status: 'Uploaded',
-        uploadedAt: '12 July 2026',
+defineProps({
+    documents: {
+        type: Array,
+        default: () => [],
     },
-    {
-        type: 'Previous Degree',
-        filename: 'degree.pdf',
-        status: 'Uploaded',
-        uploadedAt: '12 July 2026',
-    },
-]
+})
+// const documents = [
+//     {
+//         type: 'Passport',
+//         filename: 'passport.pdf',
+//         status: 'Uploaded',
+//         uploadedAt: '12 July 2026',
+//     },
+//     {
+//         type: 'Previous Degree',
+//         filename: 'degree.pdf',
+//         status: 'Uploaded',
+//         uploadedAt: '12 July 2026',
+//     },
+// ]
 </script>
 
 <template>
@@ -62,6 +68,14 @@ const documents = [
 
                     <td class="px-6 py-4 text-slate-400">
                         {{ document.uploadedAt }}
+                    </td>
+                </tr>
+                <tr v-if="documents.length === 0">
+                    <td
+                        colspan="4"
+                        class="px-6 py-12 text-center text-slate-400"
+                    >
+                        You have not uploaded any documents yet.
                     </td>
                 </tr>
                 </tbody>

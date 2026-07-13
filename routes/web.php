@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\User\Portal\DocumentController;
 use Inertia\Inertia;
 
 use App\Http\Controllers\ContactFormController;
@@ -18,11 +19,14 @@ Route::middleware(['auth', 'verified'])->prefix('portal')->name('portal.')
         Route::get('/dashboard', fn () => Inertia::render('Portal/Dashboard'))
             ->name('dashboard');
 
-        Route::get('/documents/upload', fn () => Inertia::render('Portal/Documents/Upload'))
+        Route::get('/documents', [DocumentController::class, 'index'])
+            ->name('documents.index');
+
+        Route::get('/documents/upload', [DocumentController::class, 'create'])
             ->name('documents.upload');
 
-        Route::get('/documents', fn () => Inertia::render('Portal/Documents/Index'))
-            ->name('documents.index');
+        Route::post('/documents', [DocumentController::class, 'store'])
+            ->name('documents.store');
 
         Route::get('/application-status', fn () => Inertia::render('Portal/ApplicationStatus'))
             ->name('application.status');
