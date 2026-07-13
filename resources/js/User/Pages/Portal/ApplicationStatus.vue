@@ -1,32 +1,58 @@
 <script setup>
+import { computed } from 'vue'
 import { Head } from '@inertiajs/vue3'
-import PortalLayout from '@/User/Layouts/AuthenticatedUserPortalLayout.vue'
+import PortalLayout from '@/User/Layouts/PortalLayout.vue'
 import StatusBadge from '@/User/Components/Portal/StatusBadge.vue'
 
-const currentStatus = 'waiting_processing'
+const props = defineProps({
+    application: {
+        type: Object,
+        required: true,
+    },
+})
 
-const timeline = [
-    {
-        title: 'Documents uploaded',
-        completed: true,
-    },
-    {
-        title: 'Waiting for nightly processing',
-        completed: true,
-    },
-    {
-        title: 'OCR and text extraction',
-        completed: false,
-    },
-    {
-        title: 'Priority score calculated',
-        completed: false,
-    },
-    {
-        title: 'Appointment assigned',
-        completed: false,
-    },
-]
+const timeline = computed(() => {
+    const allUploaded = props.application.all_documents_uploaded
+
+    const processingStatuses = [
+        'processing',
+        'processed',
+        'appointment_assigned',
+    ]
+
+    const hasStartedProcessing = processingStatuses.includes(
+        props.application.status
+    )
+
+    const processingCompleted = [
+        'processed',
+        'appointment_assigned',
+    ].includes(props.application.status)
+
+    return [
+        {
+            title: 'All required documents uploaded',
+            completed: allUploaded,
+        },
+        {
+            title: 'Waiting for nightly processing',
+            completed: allUploaded,
+        },
+        {
+            title: 'OCR and text extraction',
+            completed: hasStartedProcessing,
+        },
+        {
+            title: 'Priority score calculated',
+            completed: processingCompleted,
+        },
+        {
+            title: 'Appointment assigned',
+            completed:
+                props.application.status === 'appointment_assigned',
+        },
+    ]
+})
 </script>
 
 <template>

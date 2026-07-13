@@ -1,26 +1,20 @@
 <script setup>
-import { Head, Link, usePage } from '@inertiajs/vue3'
+import {Head, Link, usePage} from '@inertiajs/vue3'
 import PortalLayout from '@/User/Layouts/AuthenticatedUserPortalLayout.vue'
 import StatusBadge from '@/User/Components/Portal/StatusBadge.vue'
 
 const page = usePage()
-
-const requiredDocuments = [
-    { name: 'Passport', uploaded: true },
-    { name: 'Previous Degree', uploaded: true },
-    { name: 'Transcript', uploaded: false },
-    { name: 'Admission Letter', uploaded: false },
-]
-
-const uploadedCount = requiredDocuments.filter(
-    (document) => document.uploaded,
-).length
-
-const currentStatus = 'pending_upload'
+defineProps({
+    application: {
+        type: Object,
+        required: true,
+    },
+})
+const requiredDocuments = []
 </script>
 
 <template>
-    <Head title="Portal Dashboard" />
+    <Head title="Portal Dashboard"/>
 
     <PortalLayout>
         <section>
@@ -37,22 +31,26 @@ const currentStatus = 'pending_upload'
                 appointment application.
             </p>
         </section>
-
-        <section class="mt-10 grid gap-6 md:grid-cols-3">
+        <section class="mt-10 grid gap-5 md:grid-cols-3">
             <div class="rounded-2xl border border-slate-800 bg-slate-900 p-6">
                 <p class="text-sm text-slate-400">Current status</p>
 
                 <div class="mt-4">
-                    <StatusBadge :status="currentStatus" />
+                    <StatusBadge :status="application.status"/>
                 </div>
             </div>
 
-            <div class="rounded-2xl border border-slate-800 bg-slate-900 p-6">
-                <p class="text-sm text-slate-400">Documents uploaded</p>
+            <div
+                v-if="application.all_documents_uploaded"
+                class="rounded-xl border border-blue-500/30 bg-blue-500/10 p-4 text-blue-300">
+                All required documents are uploaded. Your application is ready
+                for nightly processing.
+            </div>
 
-                <p class="mt-3 text-3xl font-bold">
-                    {{ uploadedCount }}/{{ requiredDocuments.length }}
-                </p>
+            <div
+                v-else
+                class="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4 text-amber-300">
+                Upload all required documents before your application can be processed.
             </div>
 
             <div class="rounded-2xl border border-slate-800 bg-slate-900 p-6">
@@ -65,44 +63,27 @@ const currentStatus = 'pending_upload'
         </section>
 
         <section class="mt-8 grid gap-8 lg:grid-cols-2">
-            <div class="rounded-2xl border border-slate-800 bg-slate-900 p-7">
-                <div class="flex items-center justify-between gap-4">
+            <div class="rounded-2xl border border-slate-800 bg-slate-900 p-6">
+                <p class="text-sm text-slate-400">Documents uploaded</p>
+                <div
+                    v-for="document in application.documents"
+                    :key="document.slug"
+                    class="flex items-center justify-between rounded-xl border border-slate-800 bg-slate-950 p-4">
                     <div>
-                        <h2 class="text-xl font-bold">
-                            Required documents
-                        </h2>
+                        <p class="font-medium">
+                            {{ document.name }}
+                        </p>
 
-                        <p class="mt-2 text-sm text-slate-400">
-                            Upload every required document before nightly processing.
+                        <p
+                            v-if="document.filename"
+                            class="mt-1 text-sm text-slate-500">
+                            {{ document.filename }}
                         </p>
                     </div>
 
-                    <Link
-                        :href="route('portal.documents.upload')"
-                        class="rounded-lg bg-blue-500 px-4 py-2 text-sm font-semibold hover:bg-blue-600"
-                    >
-                        Upload
-                    </Link>
-                </div>
-
-                <div class="mt-6 space-y-3">
-                    <div
-                        v-for="document in requiredDocuments"
-                        :key="document.name"
-                        class="flex items-center justify-between rounded-xl border border-slate-800 bg-slate-950 p-4"
-                    >
-                        <span>{{ document.name }}</span>
-
-                        <span
-                            :class="
-                                document.uploaded
-                                    ? 'text-green-400'
-                                    : 'text-amber-400'
-                            "
-                        >
-                            {{ document.uploaded ? 'Uploaded' : 'Required' }}
-                        </span>
-                    </div>
+                    <span :class="document.uploaded ? 'text-green-400' : 'text-amber-400'">
+                        {{ document.uploaded ? 'Uploaded' : 'Required' }}
+                    </span>
                 </div>
             </div>
 
@@ -134,5 +115,46 @@ const currentStatus = 'pending_upload'
                 </div>
             </div>
         </section>
+
+        <div class="mt-10 rounded-2xl border border-slate-800 bg-slate-900 p-7">
+            <div class="flex items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-xl font-bold">
+                        Required documents
+                    </h2>
+
+                    <p class="mt-2 text-sm text-slate-400">
+                        Upload every required document before nightly processing.
+                    </p>
+                </div>
+
+                <Link
+                    :href="route('portal.documents.upload')"
+                    class="rounded-lg bg-blue-500 px-4 py-2 text-sm font-semibold hover:bg-blue-600"
+                >
+                    Upload
+                </Link>
+            </div>
+
+            <div class="mt-6 space-y-3">
+                <div
+                    v-for="document in requiredDocuments"
+                    :key="document.name"
+                    class="flex items-center justify-between rounded-xl border border-slate-800 bg-slate-950 p-4"
+                >
+                    <span>{{ document.name }}</span>
+
+                    <span
+                        :class="
+                                document.uploaded
+                                    ? 'text-green-400'
+                                    : 'text-amber-400'
+                            "
+                    >
+                            {{ document.uploaded ? 'Uploaded' : 'Required' }}
+                        </span>
+                </div>
+            </div>
+        </div>
     </PortalLayout>
 </template>

@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\User\Portal\ApplicationStatusController;
+use App\Http\Controllers\User\Portal\PortalDashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\Portal\DocumentController;
 use Inertia\Inertia;
@@ -16,7 +18,7 @@ Route::post('/contact', [ContactFormController::class, 'store_contact_form'])->n
 
 Route::middleware(['auth', 'verified'])->prefix('portal')->name('portal.')
     ->group(function () {
-        Route::get('/dashboard', fn () => Inertia::render('Portal/Dashboard'))
+        Route::get('/dashboard', PortalDashboardController::class)
             ->name('dashboard');
 
         Route::get('/documents', [DocumentController::class, 'index'])
@@ -28,11 +30,12 @@ Route::middleware(['auth', 'verified'])->prefix('portal')->name('portal.')
         Route::post('/documents', [DocumentController::class, 'store'])
             ->name('documents.store');
 
-        Route::get('/application-status', fn () => Inertia::render('Portal/ApplicationStatus'))
+        Route::get('/application-status', PortalDashboardController::class)
             ->name('application.status');
 
-        Route::get('/appointment-status', fn () => Inertia::render('Portal/AppointmentStatus'))
-            ->name('appointment.status');
+        Route::get('/appointment-status', function () {
+            return Inertia::render('Portal/AppointmentStatus');
+        })->name('appointment.status');
     });
 
 Route::middleware('auth')->group(function () {
