@@ -13,12 +13,12 @@ class PortalDashboardController extends Controller
         private readonly ApplicationStatusService $statusService
     ) {
     }
+
     public function __invoke(): Response
     {
-        return Inertia::render('Portal/Dashboard', [
-            'application' => $this->statusService->getSummary(
-                request()->user()
-            ),
-        ]);
+        return Inertia::render('Portal/Dashboard',
+            [
+                'application' => $this->statusService->getSummary(request()->user()),
+            ]);
     }
 }
