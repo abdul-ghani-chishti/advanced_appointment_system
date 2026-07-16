@@ -15,7 +15,7 @@ class Document extends Model
         'path',
         'mime_type',
         'size_bytes',
-        'status',
+        'document_status_id',
         'failure_reason',
         'processed_at',
     ];

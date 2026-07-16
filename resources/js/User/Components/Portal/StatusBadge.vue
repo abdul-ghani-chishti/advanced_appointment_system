@@ -12,6 +12,9 @@ const statusClasses = {
     pending_upload:
         'bg-amber-500/10 text-amber-300 border-amber-500/30',
 
+    uploaded:
+        'bg-amber-500/10 text-amber-300 border-amber-500/30',
+
     waiting_processing:
         'bg-blue-500/10 text-blue-300 border-blue-500/30',
 
@@ -30,6 +33,7 @@ const statusClasses = {
 
 const statusLabels = {
     pending_upload: 'Documents Required',
+    uploaded: 'Documents Uploaded',
     waiting_processing: 'Waiting for Processing',
     processing: 'Processing',
     processed: 'Processing Completed',

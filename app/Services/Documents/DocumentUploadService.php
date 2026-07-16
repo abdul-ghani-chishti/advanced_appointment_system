@@ -54,7 +54,7 @@ class DocumentUploadService
             $storedName,
             'local'
         );
-
+//dd(1);
         try {
             Document::updateOrCreate(
                 [
@@ -67,6 +67,7 @@ class DocumentUploadService
                     'path' => $path,
                     'mime_type' => $file->getMimeType(),
                     'size_bytes' => $file->getSize(),
+                    'document_status_id' => 2, //uploaded
                     'failure_reason' => null,
                 ]
             );

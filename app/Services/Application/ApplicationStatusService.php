@@ -65,12 +65,16 @@ class ApplicationStatusService
         $statuses = collect($documents)
             ->pluck('status')
             ->filter();
-//dd($statuses);
-        if ($statuses->contains(0)) {
-            return 'failed';
-        }
 
         if ($statuses->contains(1)) {
+            return 'pending_upload';
+        }
+
+        if ($statuses->contains(2)) {
+            return 'uploaded';
+        }
+
+        if ($statuses->contains(3)) {
             return 'processing';
         }
 
@@ -80,6 +84,14 @@ class ApplicationStatusService
             return 'processed';
         }
 
+        if ($statuses->contains(5)) {
+            return 'Failed';
+        }
+
+        if ($statuses->contains(5)) {
+            return 'Rejected';
+        }
+        
         return 'waiting_processing';
     }
 }
