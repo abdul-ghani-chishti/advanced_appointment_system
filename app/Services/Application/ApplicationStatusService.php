@@ -18,7 +18,7 @@ class ApplicationStatusService
             ->get(['id', 'name', 'slug']);
 
         $userDocuments = $user->documents()
-            ->with('documentType:id,name,slug') // eager loading concept (everything load at once)
+            ->with('document_type:id,name,slug') // eager loading concept (everything load at once)
             ->get()
             ->keyBy('document_type_id');
 
@@ -91,7 +91,7 @@ class ApplicationStatusService
         if ($statuses->contains(5)) {
             return 'Rejected';
         }
-        
+
         return 'waiting_processing';
     }
 }

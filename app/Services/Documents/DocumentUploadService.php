@@ -2,6 +2,7 @@
 
 namespace App\Services\Documents;
 
+use App\Models\Application;
 use App\Models\Document;
 use App\Models\DocumentType;
 use App\Models\User;
@@ -26,7 +27,7 @@ class DocumentUploadService
             foreach (self::FIELD_TO_SLUG as $field => $slug) {
                 $file = $files[$field] ?? null;
 
-                if (! $file instanceof UploadedFile) {
+                if (!$file instanceof UploadedFile) {
                     continue;
                 }
 
@@ -35,17 +36,19 @@ class DocumentUploadService
         });
     }
 
-    private function storeFile(
-        User $user,
-        string $documentTypeSlug,
-        UploadedFile $file
-    ): void {
+    private function storeFile(User $user, string $documentTypeSlug, UploadedFile $file): void
+    {
         $documentType = DocumentType::where('slug', $documentTypeSlug)
             ->firstOrFail();
 
-        $existingDocument = Document::where('user_id', $user->id)
+        $existing_document = Document::where('user_id', $user->id)
             ->where('document_type_id', $documentType->id)
             ->first();
+
+        $existing_document_count = Document::where('user_id', $user->id)
+            ->count();
+
+        $required_document_count = DocumentType::all()->count();
 
         $storedName = Str::uuid() . '.' . $file->getClientOriginalExtension();
 
@@ -54,14 +57,22 @@ class DocumentUploadService
             $storedName,
             'local'
         );
-//dd(1);
+//dd('Existing Docs',$existing_document_count,$required_document_count);
         try {
+            if ($required_document_count == $existing_document_count) {
+                $create_application = Application::updateOrCreate(
+                    ['user_id' => $user->id, 'application_status_id' => 2]
+                );
+//                dd($create_application->id);
+            }
+
             Document::updateOrCreate(
                 [
                     'user_id' => $user->id,
                     'document_type_id' => $documentType->id,
                 ],
                 [
+                    'application_id' => $create_application ? $create_application->id : null,
                     'original_name' => $file->getClientOriginalName(),
                     'stored_name' => $storedName,
                     'path' => $path,
@@ -72,9 +83,8 @@ class DocumentUploadService
                 ]
             );
 
-            if ($existingDocument && $existingDocument->path !== $path)
-            {
-                Storage::disk('local')->delete($existingDocument->path);
+            if ($existing_document && $existing_document->path !== $path) {
+                Storage::disk('local')->delete($existing_document->path);
             }
         } catch (Throwable $exception) {
             Storage::disk('local')->delete($path);
