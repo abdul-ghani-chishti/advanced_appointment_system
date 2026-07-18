@@ -54,17 +54,17 @@ const label = computed(() => {
 </script>
 
 <template>
-<!--    <pre>{{props}}</pre>-->
+    <pre>{{props}}</pre>
     <span
         class="inline-flex rounded-full border px-3 py-1 text-sm font-semibold"
         :class="classes"
     >
         {{ label }}
     </span>
-    <span v-if="props.status == 'processing'"
-        class="ml-2 inline-flex rounded-full border px-3 py-1 text-sm font-semibold"
+    <span v-if="props.status === 'uploaded'"
+        class="mt-2 inline-flex rounded-full border px-3 py-1 text-sm font-semibold"
         :class="classes"
     >
-        Docs Uploaded
+        Wait to Process
     </span>
 </template>
