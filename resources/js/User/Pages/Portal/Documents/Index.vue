@@ -67,7 +67,7 @@ defineProps({
                     </td>
 
                     <td class="px-6 py-4 text-slate-400">
-                        {{ document.uploadedAt }}
+                        {{ document.uploaded_at }}
                     </td>
                 </tr>
                 <tr v-if="documents.length === 0">

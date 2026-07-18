@@ -21,15 +21,15 @@ class DocumentController extends Controller
     {
         $documents = auth()->user()
             ->documents()
-            ->with('documentType:id,name,slug')
+            ->with('document_type:id,name,slug')
             ->latest()
             ->get()
             ->map(fn ($document) => [
                 'id' => $document->id,
-                'type' => $document->documentType->name,
-                'slug' => $document->documentType->slug,
+                'type' => $document->document_type->name,
+                'slug' => $document->document_type->slug,
                 'filename' => $document->original_name,
-                'status' => $document->status,
+                'status' => $document->status->name,
                 'uploaded_at' => $document->created_at->format('d M Y H:i'),
             ]);
 

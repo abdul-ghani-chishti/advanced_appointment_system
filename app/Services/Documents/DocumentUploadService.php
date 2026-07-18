@@ -38,17 +38,17 @@ class DocumentUploadService
 
     private function storeFile(User $user, string $documentTypeSlug, UploadedFile $file): void
     {
+        $create_application = null;
         $documentType = DocumentType::where('slug', $documentTypeSlug)
             ->firstOrFail();
 
-        $existing_document = Document::where('user_id', $user->id)
+        $already_exist = Document::where('user_id', $user->id);
+
+        $existing_document = $already_exist
             ->where('document_type_id', $documentType->id)
             ->first();
 
-        $existing_document_count = Document::where('user_id', $user->id)
-            ->count();
-
-        $required_document_count = DocumentType::all()->count();
+        $required_doc_count = DocumentType::all()->count();
 
         $storedName = Str::uuid() . '.' . $file->getClientOriginalExtension();
 
@@ -57,15 +57,8 @@ class DocumentUploadService
             $storedName,
             'local'
         );
-//dd('Existing Docs',$existing_document_count,$required_document_count);
-        try {
-            if ($required_document_count == $existing_document_count) {
-                $create_application = Application::updateOrCreate(
-                    ['user_id' => $user->id, 'application_status_id' => 2]
-                );
-//                dd($create_application->id);
-            }
 
+        try {
             Document::updateOrCreate(
                 [
                     'user_id' => $user->id,
@@ -86,6 +79,17 @@ class DocumentUploadService
             if ($existing_document && $existing_document->path !== $path) {
                 Storage::disk('local')->delete($existing_document->path);
             }
+
+            $exist_doc_count = Document::where('user_id', $user->id)->count();
+            if ($required_doc_count == $exist_doc_count) {
+
+                $create_application = Application::updateOrCreate(
+                    ['user_id' => $user->id, 'application_status_id' => 2]
+                );
+
+                Document::where('user_id',$user->id)->update(['application_id'=>$create_application->id]);
+            }
+
         } catch (Throwable $exception) {
             Storage::disk('local')->delete($path);
 
