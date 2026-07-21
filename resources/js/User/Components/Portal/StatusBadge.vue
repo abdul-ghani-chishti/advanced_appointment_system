@@ -54,7 +54,7 @@ const label = computed(() => {
 </script>
 
 <template>
-    <pre>{{props}}</pre>
+<!--    <pre>{{props}}</pre>-->
     <span
         class="inline-flex rounded-full border px-3 py-1 text-sm font-semibold"
         :class="classes"
