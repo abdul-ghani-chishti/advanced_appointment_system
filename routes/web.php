@@ -28,6 +28,7 @@ Route::middleware(['auth', 'verified'])->prefix('portal')->name('portal.')
             ->name('documents.upload');
 
         Route::post('/documents', [DocumentController::class, 'store'])
+            ->middleware('uploads.available')
             ->name('documents.store');
 
         Route::get('/application-status', PortalDashboardController::class)
