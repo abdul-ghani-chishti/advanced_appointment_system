@@ -13,6 +13,8 @@ class Document extends Model
         'document_type_id',
         'original_name',
         'stored_name',
+        'extracted_text',
+        'extracted_character_count',
         'path',
         'mime_type',
         'size_bytes',
