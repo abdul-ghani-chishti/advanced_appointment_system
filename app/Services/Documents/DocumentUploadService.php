@@ -65,7 +65,7 @@ class DocumentUploadService
                     'document_type_id' => $documentType->id,
                 ],
                 [
-                    'application_id' => $create_application ? $create_application->id : null,
+//                    'application_id' => $create_application ? $create_application->id : null,
                     'original_name' => $file->getClientOriginalName(),
                     'stored_name' => $storedName,
                     'path' => $path,
@@ -83,11 +83,18 @@ class DocumentUploadService
             $exist_doc_count = Document::where('user_id', $user->id)->count();
             if ($required_doc_count == $exist_doc_count) {
 
-                $create_application = Application::updateOrCreate(
-                    ['user_id' => $user->id, 'application_status_id' => 2]
-                );
+                $existing_application = Application::where('user_id', $user->id)
+                    ->wherein('application_status_id', [1, 2, 3])
+                    ->get();
 
-                Document::where('user_id',$user->id)->update(['application_id'=>$create_application->id]);
+                if ($existing_application->count() == 0) {
+
+                    $create_application = Application::updateOrCreate(
+                        ['user_id' => $user->id, 'application_status_id' => 2]
+                    );
+
+                    Document::where('user_id', $user->id)->update(['application_id' => $create_application->id]);
+                }
             }
 
         } catch (Throwable $exception) {
