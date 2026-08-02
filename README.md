@@ -1,58 +1,333 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🚀 Advanced Appointment System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A modern Laravel-based application that automates student appointment processing through asynchronous document validation and background job processing.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+# 📖 Overview
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+The **Advanced Appointment System** is a portfolio project built with **Laravel**, **Vue.js**, and **Inertia.js** to demonstrate enterprise-level backend architecture and scalable application design.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Instead of processing uploaded documents immediately, the system collects applications throughout the day and processes them during a scheduled nightly batch. This approach reflects how large-scale enterprise applications handle high-volume workloads using queues, jobs, and scheduled tasks.
 
-## Learning Laravel
+The project emphasizes:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- Clean Architecture
+- Service Layer Pattern
+- Queue-based Processing
+- Scalable Design
+- Dependency Injection
+- Separation of Concerns
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+# ✨ Features
 
-## Agentic Development
+### Current Features
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+- ✅ User Registration & Authentication
+- ✅ Student Dashboard
+- ✅ Multi-document Upload
+- ✅ Secure File Storage
+- ✅ Application Tracking
+- ✅ Queue-based Background Processing
+- ✅ Nightly Batch Processing
+- ✅ Machine-readable PDF Text Extraction
+- ✅ Automatic Status Management
 
-```bash
-composer require laravel/boost --dev
+### Planned Features
 
-php artisan boost:install
+- ⏳ Email Notifications
+- ⏳ Appointment Allocation
+- ⏳ Admin Dashboard
+- ⏳ OCR Support
+- ⏳ AI-assisted Document Analysis
+
+---
+
+# 🏗️ System Workflow
+
+```text
+Student Registration
+        │
+        ▼
+Upload Required Documents
+        │
+        ▼
+Application Created
+        │
+        ▼
+Waiting for Processing
+        │
+        ▼
+Nightly Scheduler
+        │
+        ▼
+Queue Job
+        │
+        ▼
+PDF Text Extraction
+        │
+        ▼
+Document Validation
+        │
+        ▼
+Appointment Generation
+        │
+        ▼
+Student Notification
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+---
 
-## Contributing
+# 📁 Project Structure
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```text
+app/
 
-## Code of Conduct
+├── Contracts/
+│   └── DocumentTextExtractor.php
+│
+├── Console/
+│   └── Commands/
+│
+├── Http/
+│   ├── Controllers/
+│   └── Requests/
+│
+├── Jobs/
+│   └── ProcessApplicationJob.php
+│
+├── Models/
+│
+├── Notifications/
+│
+└── Services/
+    └── Documents/
+        ├── DocumentProcessingService.php
+        ├── Extraction/
+        │   └── PdfTextExtractor.php
+        ├── Parsing/
+        └── Validation/
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+# 🛠️ Technology Stack
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+| Category | Technologies |
+|-----------|--------------|
+| **Backend** | Laravel, PHP |
+| **Database** | MySQL |
+| **Frontend** | Vue.js, Inertia.js, Tailwind CSS |
+| **Background Processing** | Laravel Queue, Scheduler, Jobs |
+| **PDF Processing** | Poppler (`pdftotext`) |
+| **Development Tools** | Composer, Vite, Git, Postman |
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# 📄 Supported Documents
+
+### Supported
+
+- ✅ Machine-readable PDF
+- ✅ Digital Admission Letter
+- ✅ Digital Transcript
+- ✅ Digital Degree Certificate
+- ✅ Digital Passport Copy
+
+### Not Supported
+
+- ❌ Scanned PDF
+- ❌ Image-only PDF
+- ❌ JPG / PNG
+- ❌ Handwritten Documents
+
+> **Note**
+>
+> OCR support will be added in a future release.
+
+---
+
+# ⚙️ Processing Pipeline
+
+Every uploaded application is processed asynchronously.
+
+```text
+Upload
+    │
+    ▼
+Validation
+    │
+    ▼
+Database
+    │
+    ▼
+Waiting for Processing
+    │
+    ▼
+Nightly Scheduler
+    │
+    ▼
+Queue Job
+    │
+    ▼
+PDF Text Extraction
+    │
+    ▼
+Store Extracted Text
+    │
+    ▼
+Future:
+Priority Calculation
+    │
+    ▼
+Appointment Generation
+```
+
+---
+
+# 🌙 Why Nightly Processing?
+
+Instead of processing documents immediately after upload, the application performs all heavy processing during a scheduled nightly batch.
+
+### Benefits
+
+- Better scalability
+- Reduced server load
+- Easier retry mechanism
+- Fault tolerance
+- Consistent processing workflow
+- Enterprise-style architecture
+
+---
+
+# 🏛️ Architecture
+
+The project follows a layered architecture.
+
+```text
+Controllers
+      │
+      ▼
+Services
+      │
+      ▼
+Business Logic
+      │
+      ▼
+Jobs
+      │
+      ▼
+Document Extractors
+      │
+      ▼
+Database
+```
+
+---
+
+# 💡 Software Design Principles
+
+- Single Responsibility Principle (SRP)
+- Dependency Injection
+- Service Layer Pattern
+- Interface-based Programming
+- Separation of Concerns
+- Queue-based Architecture
+- Clean Code
+- Scalable Background Processing
+
+---
+
+# 🚀 Future Roadmap
+
+- OCR Support for Scanned Documents
+- AI-powered Document Classification
+- Automatic Field Extraction
+- Priority Scoring Algorithm
+- Appointment Recommendation Engine
+- Email Notifications
+- Admin Dashboard
+- Activity Logs
+- Audit Trail
+- REST API
+- Role-Based Access Control
+
+---
+
+# 📚 Learning Objectives
+
+This project demonstrates practical backend engineering concepts using Laravel.
+
+- Laravel Architecture
+- Queue Processing
+- Scheduled Tasks
+- Service Layer
+- Dependency Injection
+- File Upload Management
+- Background Jobs
+- PDF Text Extraction
+- Error Handling
+- Scalable System Design
+
+---
+
+# ⚡ Installation
+
+```bash
+git clone https://github.com/yourusername/advanced-appointment-system.git
+
+cd advanced-appointment-system
+
+composer install
+
+npm install
+
+cp .env.example .env
+
+php artisan key:generate
+
+php artisan migrate --seed
+
+npm run dev
+
+php artisan serve
+```
+
+---
+
+# 🔄 Queue Worker
+
+```bash
+php artisan queue:work
+```
+
+---
+
+# ⏰ Scheduler
+
+```bash
+php artisan schedule:work
+```
+
+Or configure the system scheduler:
+
+```cron
+* * * * * php artisan schedule:run
+```
+
+---
+
+# 📜 License
+
+This project is developed for educational and portfolio purposes to demonstrate modern Laravel architecture and enterprise backend development practices.
+
+---
+
+# 👨‍💻 Author
+
+**Abdul Ghani Chishti**
+
+Master's Student – Computer Science  
+Laravel Backend Developer | PHP | Vue.js | MySQL
