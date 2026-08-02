@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
+use App\Contracts\DocumentTextExtractor;
+use App\Services\Documents\Extraction\PdfTextExtractor;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
-use App\Contracts\DocumentTextExtractor;
-use App\Services\Documents\PdfTextExtractor;
 
 class AppServiceProvider extends ServiceProvider
 {

@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Services\Documents;
+namespace App\Services\Documents\Extraction;
 
 use App\Contracts\DocumentTextExtractor;
 use App\Models\Document;
 use Illuminate\Support\Facades\Storage;
 use RuntimeException;
 use Symfony\Component\Process\Process;
+
 class PdfTextExtractor implements DocumentTextExtractor
 {
     public function extract(Document $document): string

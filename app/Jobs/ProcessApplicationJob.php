@@ -92,7 +92,7 @@ class ProcessApplicationJob implements ShouldQueue
 
             /*
             |--------------------------------------------------------------------------
-            | 3. OCR/text extraction will eventually happen here
+            | 3. text extraction eventually happen here
             |--------------------------------------------------------------------------
             */
 
