@@ -10,6 +10,7 @@ use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 use App\Contracts\DocumentTextExtractor;
+use App\Services\Documents\Parsing\DocumentParserFactory;
 
 class ProcessApplicationJob implements ShouldQueue
 {
@@ -28,12 +29,12 @@ class ProcessApplicationJob implements ShouldQueue
     /**
      * Execute the job.
      */
-    public function handle(DocumentTextExtractor $extractor): void
+    public function handle(DocumentTextExtractor $extractor, DocumentParserFactory $parserFactory): void
     {
         try {
             DB::beginTransaction();
             // Get the application together with its documents
-            $application = Application::with('documents')
+            $application = Application::with('documents.document_type')
                 ->findOrFail($this->application_id);
 
             // Application status: Processing
@@ -99,13 +100,31 @@ class ProcessApplicationJob implements ShouldQueue
             foreach ($application->documents as $document) {
                 try {
                     $text = $extractor->extract($document);
-
+//dd($text);
                     $document->update([
                         'document_status_id' => $documentProcessedStatus->id,
                         'extracted_text' => $text,
                         'extracted_character_count' => mb_strlen($text),
                         'failure_reason' => null,
                     ]);
+
+                    $document->refresh();
+
+                    $parser = $parserFactory->resolve($document);
+
+                    $parsedData = $parser->parse($document);
+//dd($parsedData);
+                    // Temporary debugging:
+                    logger()->info(
+                        "Document {$document->id} parsed successfully.",
+                        $parsedData
+                    );
+
+                    $document->update([
+                        'document_status_id' => $documentProcessedStatus->id,
+                        'failure_reason' => null,
+                    ]);
+
                 } catch (\Throwable $exception) {
                     $document->update([
                         'document_status_id' => $documentFailedStatus->id,

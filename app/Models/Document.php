@@ -49,4 +49,24 @@ class Document extends Model
             'document_status_id'
         );
     }
+
+    public function transcript()
+    {
+        return $this->hasOne(Transcript::class);
+    }
+
+    public function degree()
+    {
+        return $this->hasOne(Degree::class);
+    }
+
+    public function passport()
+    {
+        return $this->hasOne(Passport::class);
+    }
+
+    public function admissionLetter()
+    {
+        return $this->hasOne(AdmissionLetter::class);
+    }
 }
