@@ -20,6 +20,7 @@ return new class extends Migration
                 ->cascadeOnDelete();
 
             $table->string('student_name')->nullable();
+            $table->integer('student_id')->index()->nullable();
 
             $table->string('university_name')->nullable();
 
@@ -27,8 +28,12 @@ return new class extends Migration
 
             $table->date('admission_date')->nullable();
 
-            $table->string('semester')->nullable();
+            $table->integer('regular_study_period_months')->nullable();
 
+            $table->string('study_mode')->nullable();
+            $table->string('language_of_instruction')->nullable();
+            $table->date('latest_enrolment_date')->nullable();
+            $table->date('letter_issue_date')->nullable();
             $table->unsignedTinyInteger('parser_version')->default(1);
 
             $table->timestamps();

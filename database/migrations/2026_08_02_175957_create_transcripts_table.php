@@ -19,17 +19,18 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete();
 
-            $table->string('student_name')->nullable();
-
+            $table->string('student_last_name')->nullable();
+            $table->string('student_first_name')->nullable();
+            $table->string('matriculation_number')->nullable();
             $table->string('university_name')->nullable();
-
             $table->string('degree_name')->nullable();
-
-            $table->decimal('cgpa',4,2)->nullable();
-
+            $table->unsignedSmallInteger('required_credits')->nullable();
             $table->unsignedSmallInteger('total_credits')->nullable();
-
-            $table->date('graduation_date')->nullable();
+            $table->decimal('cgpa',4,2)->nullable();
+            $table->date('start_of_studies')->nullable();
+            $table->date('end_of_studies')->nullable();
+            $table->date('date_of_birth')->nullable();
+            $table->string('place_of_birth')->nullable();
 
             $table->unsignedTinyInteger('parser_version')->default(1);
 

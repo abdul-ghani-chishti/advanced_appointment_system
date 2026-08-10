@@ -100,7 +100,7 @@ class ProcessApplicationJob implements ShouldQueue
             foreach ($application->documents as $document) {
                 try {
                     $text = $extractor->extract($document);
-//dd($text);
+
                     $document->update([
                         'document_status_id' => $documentProcessedStatus->id,
                         'extracted_text' => $text,
@@ -113,7 +113,7 @@ class ProcessApplicationJob implements ShouldQueue
                     $parser = $parserFactory->resolve($document);
 
                     $parsedData = $parser->parse($document);
-//dd($parsedData);
+
                     // Temporary debugging:
                     logger()->info(
                         "Document {$document->id} parsed successfully.",
