@@ -19,6 +19,10 @@ return new class extends Migration
             $table->unsignedInteger('extracted_character_count')
                 ->nullable()
                 ->after('stored_name');
+
+            $table->timestamp('processed_at')
+                ->nullable()
+                ->after('extracted_character_count');
         });
     }
 

@@ -12,13 +12,19 @@ class AdmissionLetter extends Model
         'student_id',
         'university_name',
         'program_name',
-        'admission_date',
         'regular_study_period_months',
         'study_mode',
         'language_of_instruction',
+        'parser_version',
+        'admission_date',
         'latest_enrolment_date',
         'letter_issue_date',
-        'parser_version',
+    ];
+
+    protected $casts = [
+        'admission_date' => 'date',
+        'latest_enrolment_date' => 'date',
+        'letter_issue_date' => 'date',
     ];
 
     public function document()
